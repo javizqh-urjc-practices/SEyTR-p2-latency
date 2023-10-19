@@ -1,0 +1,78 @@
+\documentclass[12pt, a4paper]{report}
+\usepackage{graphicx} %LaTeX package to import graphics
+\usepackage{enumitem}
+\usepackage{geometry}
+\usepackage{xcolor}
+\geometry{lmargin=30mm}
+\usepackage[export]{adjustbox}
+\usepackage{array}
+\usepackage{titlesec}
+\titleformat{\chapter}{\normalfont\huge}{\thechapter}{20pt}{\huge\bf}
+\graphicspath{{images/}} %configuring the graphicx package
+\title{Practica 1}
+\author{Javier Izquierdo Hernández}
+\date{\today}
+
+\begin{document}
+	\begin{titlepage}
+		\centering
+		{\includegraphics[width=0.3\textwidth]{logo}\par}
+		\vspace{1cm}
+		{\bfseries\LARGE Universidad Rey Juan Carlos \par}
+		\vspace{1cm}
+		{\scshape\Large E.T.S. Ingeniería de Telecomunicación \par}
+		\vspace{3cm}
+		{\scshape\Huge Sistemas empotrados y de tiempo real \par}
+		\vspace{3cm}
+		{\itshape\Large Práctica 2 \par}
+		\vfill
+		{\Large Autor: \par}
+		{\Large Javier Izquierdo Hernández \par}
+		\vfill
+		{\Large \today \par}
+	\end{titlepage}
+	
+	\newpage
+	\chapter*{Análisis con cyclictest}
+	\begin{center}
+		\setlength\extrarowheight{4pt}
+		\begin{tabular}{ |p{1cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}| } 
+			\hline
+			\multicolumn{7}{|c|}{\textbf{cyclictest}}\\ 
+			\hline
+			& \multicolumn{2}{|c|}{Laboratorios} & \multicolumn{4}{|c|}{RaspberryPi}\\ 
+			\cline{2-7}
+		 	& \multicolumn{2}{|c|}{Kernel NO RT} & \multicolumn{2}{|c|}{Kernel NO RT} & \multicolumn{2}{|c|}{Kernel RT}\\ 
+			\cline{2-7}
+		 	 & Latencia media (ns) & Latencia max (ns)& Latencia media (ns) & Latencia max (ns)& Latencia media (ns) & Latencia max (ns)\\ 
+			\hline
+		 	 S1 & 3367 & 4748929& 22499& 121158& 22039&70004\\ 
+			\hline
+		 	 S2 & 6575 & 4792281& 26072& 390565& 14956&83535\\ 
+			\hline
+		 	 S3 & 6033 & 4546481& 20394& 118893& 22845&69536\\ 
+			\hline
+		\end{tabular}
+	\end{center}
+	\chapter*{Desarrollo de cyclictestURJC}
+	\begin{center}
+		\setlength\extrarowheight{4pt}
+		\begin{tabular}{ |p{1cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}| } 
+			\hline
+			\multicolumn{7}{|c|}{\textbf{cyclictestURJC}}\\ 
+			\hline
+			& \multicolumn{2}{|c|}{Laboratorios} & \multicolumn{4}{|c|}{RaspberryPi}\\ 
+			\cline{2-7}
+			& \multicolumn{2}{|c|}{Kernel NO RT} & \multicolumn{2}{|c|}{Kernel NO RT} & \multicolumn{2}{|c|}{Kernel RT}\\ 
+			\cline{2-7}
+			& Latencia media (ns) & Latencia max (ns)& Latencia media (ns) & Latencia max (ns)& Latencia media (ns) & Latencia max (ns)\\ 
+			\hline
+			S1 & & & & & &\\ 
+			\hline
+			S2 & & & & & &\\ 
+			\hline
+			S3 & & & & & &\\ 
+			\hline
+		\end{tabular}
+	\end{center}
+\end{document}
