@@ -109,6 +109,10 @@ int main() {
     int latency_target_fd = open("/dev/cpu_dma_latency", O_RDWR);
     struct latency_data *lt_data = malloc(sizeof(struct latency_data));
 
+    if (latency_target_fd < 0 || csv_fd < 0) {
+        err(EXIT_FAILURE, "Couldn't open the necessary files");
+    }
+
     if (lt_data == NULL) {
         err(EXIT_FAILURE, "Memory allocation failed\n");
     }
@@ -181,7 +185,7 @@ int write_legend(int csv_fd) {
     char * buf = malloc(1024);
     int msg_len = 0;
 
-    sprintf(buf, "CPU,ITERATIONS,LATENCY\n");
+    sprintf(buf, "CPU,NUMERO_ITERACION,LATENCIA\n");
     msg_len = strlen(buf);
     write(csv_fd, buf, msg_len);
     free(buf);
