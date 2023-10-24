@@ -15,11 +15,11 @@ data3 = pd.read_csv('cyclictestURJC2.csv')
 
 # TODO: only for tests change to above
 data['LATENCIA'] = data['LATENCIA'] / 100
-data['LATENCIA'].hist(bins=100, ax=ax, range=[0, 50], color='blue', alpha=0.5, edgecolor='black', label="Non Real Time - idle")
+data['LATENCIA'].hist(bins=100, ax=ax, range=[0, 50], color='blue', alpha=0.5, edgecolor='black', label="Non Real Time - bonnie++")
 data2['LATENCIA'] = data2['LATENCIA'] / 100
 data2['LATENCIA'].hist(bins=100, ax=ax, range=[0, 50], color='red', alpha=0.5, edgecolor='black', label="Non Real Time - hackbench")
 data3['LATENCIA'] = data3['LATENCIA'] / 100
-data3['LATENCIA'].hist(bins=100, ax=ax, range=[0, 50], color='green', alpha=0.5, edgecolor='black', label="Non Real Time - bonnie++")
+data3['LATENCIA'].hist(bins=100, ax=ax, range=[0, 50], color='green', alpha=0.5, edgecolor='black', label="Non Real Time - idle")
 plt.legend(loc="upper right")
 plt.ylabel('Frecuencia')
 plt.xlabel('latencia (microsegundos)')

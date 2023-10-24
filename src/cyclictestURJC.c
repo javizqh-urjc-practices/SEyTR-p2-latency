@@ -68,7 +68,8 @@ struct info * add_info(struct info *last_info) {
     return new;
 }
 
-void print_info(int csv_fd, struct info *first_info, struct latency_data *data) {
+void print_info(int csv_fd, struct info *first_info, 
+                struct latency_data *data) {
     long long total = 0, avg = 0, max = 0, n_values = 0;
     int cpu = first_info->cpu;
     struct info *curr = first_info;
@@ -89,7 +90,8 @@ void print_info(int csv_fd, struct info *first_info, struct latency_data *data) 
         }
     }
     avg = total / n_values;
-    printf("[%d]\tlatencia media = %.9ld ns. | max = %.9ld ns\n",cpu, avg, max);
+    printf("[%d]\tlatencia media = %.9lld ns. | max = %.9lld ns\n",
+           cpu, avg, max);
     data->avg += avg;
     if (max > data->max) data->max = max;
     return;
