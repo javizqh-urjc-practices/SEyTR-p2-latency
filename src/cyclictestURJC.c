@@ -132,10 +132,10 @@ int main() {
         thread_ids[i] = i + 1;
         CPU_SET(i, &cpuset);
         threads[i] = pthread_self();
-        if (pthread_setschedparam(threads[i], SCHED_FIFO, &priority) == 0) {
+        if (pthread_setschedparam(threads[i], SCHED_FIFO, &priority) != 0) {
             err(EXIT_FAILURE, "Could not set scheduler priority");
         }
-        if (pthread_setaffinity_np(threads[i], sizeof(cpuset), &cpuset) == 0) {
+        if (pthread_setaffinity_np(threads[i], sizeof(cpuset), &cpuset) != 0) {
             err(EXIT_FAILURE, "Could not set cpu affinity");
         }
         pthread_create(&threads[i], NULL, thread_function, &thread_ids[i]);
