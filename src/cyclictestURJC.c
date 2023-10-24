@@ -69,7 +69,7 @@ struct info * add_info(struct info *last_info) {
 }
 
 void print_info(int csv_fd, struct info *first_info, struct latency_data *data) {
-    long total = 0, avg = 0, max = 0, n_values = 0;
+    long long total = 0, avg = 0, max = 0, n_values = 0;
     int cpu = first_info->cpu;
     struct info *curr = first_info;
     struct info *to_free = curr;
