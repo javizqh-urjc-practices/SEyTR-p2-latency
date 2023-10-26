@@ -10,12 +10,16 @@
 #include <fcntl.h>
 #include <err.h>
 
+#define CSV_PERMISSIONS 0777
+
 #define THREAD_ITERATIONS 5000
 #define THREAD_PRIORITY 99
 
 #define EXEC_TIME_SEC 60
 #define SEC_TO_NSEC 1000000000
 #define MSEC_TO_NSEC 1000000
+
+#define BUFFER_SIZE 1024
 
 struct timespec init;
 
@@ -107,7 +111,8 @@ int main() {
     cpu_set_t cpuset;
     void *data_thread;
     static int32_t latency_target_value = 0;
-    int csv_fd = open("cyclictestURJC.csv", O_CREAT | O_RDWR | O_TRUNC, 0777);
+    int csv_fd = open("cyclictestURJC.csv", O_CREAT | O_RDWR | O_TRUNC,
+                      CSV_PERMISSIONS);
     int latency_target_fd = open("/dev/cpu_dma_latency", O_RDWR);
     struct latency_data *lt_data = malloc(sizeof(struct latency_data));
 
@@ -149,6 +154,8 @@ int main() {
 
     printf("\nTotal\tlatencia media = %.9ld ns. | max = %.9ld ns\n", 
            lt_data->avg / N_CORES, lt_data->max);
+    
+    free(lt_data);
 
     close(csv_fd);
     close(latency_target_fd);
@@ -178,7 +185,8 @@ void * thread_function(void * arg) {
 
 // Returns the number of nanoseconds passed
 long int get_nanoseconds(struct timespec start, struct timespec end) {
-    return (end.tv_sec - start.tv_sec) * SEC_TO_NSEC + (end.tv_nsec - start.tv_nsec);
+    return (end.tv_sec - start.tv_sec) * SEC_TO_NSEC + 
+           (end.tv_nsec - start.tv_nsec);
 }
 
 // Returns the number of seconds passed
@@ -188,8 +196,13 @@ long int get_seconds(struct timespec start, struct timespec end) {
 }
 
 int write_legend(int csv_fd) {
-    char * buf = malloc(1024);
+    char * buf = malloc(BUFFER_SIZE);
     int msg_len = 0;
+
+    if (buf == NULL) {
+        err(EXIT_FAILURE, "Couldn't allocate memory");
+    }
+    memset(buf, 0, BUFFER_SIZE);
 
     sprintf(buf, "CPU,NUMERO_ITERACION,LATENCIA\n");
     msg_len = strlen(buf);
@@ -199,8 +212,13 @@ int write_legend(int csv_fd) {
 }
 
 int write_to_csv(int csv_fd, int cpu, int iterations, long latency) {
-    char * buf = malloc(1024);
+    char * buf = malloc(BUFFER_SIZE);
     int msg_len = 0;
+
+    if (buf == NULL) {
+        err(EXIT_FAILURE, "Couldn't allocate memory");
+    }
+    memset(buf, 0, BUFFER_SIZE);
 
     sprintf(buf, "%d,%d,%ld\n", cpu, iterations, latency);
     msg_len = strlen(buf);
