@@ -110,6 +110,7 @@ int main() {
     struct sched_param priority;
     cpu_set_t cpuset;
     void *data_thread;
+    struct info * data_thread_info[N_CORES];
     static int32_t latency_target_value = 0;
     int csv_fd = open("cyclictestURJC.csv", O_CREAT | O_RDWR | O_TRUNC,
                       CSV_PERMISSIONS);
@@ -126,6 +127,7 @@ int main() {
 
     lt_data->avg = 0;
     lt_data->max = 0;
+
     write_legend(csv_fd);
     write(latency_target_fd, &latency_target_value, 4);
 
@@ -148,8 +150,11 @@ int main() {
 
     for (int i = 0; i < N_CORES; i++) {
         pthread_join(threads[i], &data_thread);
-        struct info * data = (struct info *) data_thread;
-        print_info(csv_fd, data, lt_data);
+        data_thread_info[i] = (struct info *) data_thread;
+    }
+
+    for (int i = 0; i < N_CORES; i++) {
+        print_info(csv_fd,  data_thread_info[i], lt_data);
     }
 
     printf("\nTotal\tlatencia media = %.9ld ns. | max = %.9ld ns\n", 

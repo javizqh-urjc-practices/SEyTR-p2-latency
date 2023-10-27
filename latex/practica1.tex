@@ -54,6 +54,11 @@
 			\hline
 		\end{tabular}
 	\end{center}
+	Los casos que más llaman la atención son: S3 en la Raspberry Pi con el kernel no RT y S2 en la Rbpi con el kernel RT.\\
+	\newline
+	En el primer caso se observa un decremento significativo en la latencia media comparándolo con la ejecución en \textit{idle} y también desciende en menor medida la latencia máxima, pero esto puede deberse a la escasez de muestras, por lo tanto no vamos a entrar en esto. Este descenso se debe principalmente al mayor rango en el que se encuentran las latencias, causando una mayor aleatoriedad de las latencias, siendo más complicado de predecir. También hay que añadir que posiblemente la latencia máxima pueda variar de manera significativa con cada ejecución.\\
+	\newline
+	Y en el segundo casi se observa un descenso similar en la latencia media, pero la latencia máxima aumenta. Esto se puede observar mejor en los histogramas, pero se entiende al ver que al ejecutarlo con hackbench la mayoría de las latencias disminuyen, pero el dominio en el que se encuentran aumenta, lo que causa una mayor aliatoriedad. 
 	\chapter*{Desarrollo de cyclictestURJC}
 	\begin{center}
 		\setlength\extrarowheight{4pt}
@@ -75,8 +80,15 @@
 			\hline
 		\end{tabular}
 	\end{center}
+	La tabla es similar a la anterior excepto en la Rbpi con el kernel no RT.\\
+	\newline
+	Aquí es la latencia media en \textit{idle} la que ha sufrido un aumento, aunque también es significativamente menor que en el resto de casos. Esto también se puede explicar como lo hemos hecho anteriormente, y se comprueba al ver sus histogramas, que la latencia minima en \textit{idle} esta comprendida en un rango muy pequeño y más predecible que en los otros.\\
+	
 	\begin{center}
-		\includegraphics[width=\textwidth]{noRt}\\
-		\includegraphics[width=\textwidth]{Rt}
+		\includegraphics[width=0.7\textwidth]{noRt}
+	\end{center}
+	En este histograma se puede apreciar lo que he discutido en el segundo caso de la primera tabla, que usando \textit{hackbench} disminuye la latencia media, pero aumenta el rango en el que puede estar, lo que aumenta su aleatoriedad. Algo similar ocurre al usar \textit{bonnie++}. 
+	\begin{center}
+		\includegraphics[width=0.7\textwidth]{Rt}
 	\end{center}
 \end{document}
